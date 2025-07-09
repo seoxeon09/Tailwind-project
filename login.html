@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>쿠팡 로그인</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        font: 12px dotum, sans-serif;
+        color: #666666;
+        background-color: #ffffff;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen flex justify-center items-start pt-[83.5px]">
+    <div class="w-[460px]">
+      <header class="flex justify-center mb-8">
+        <img src="assets/logo.png" alt="Coupang Logo" class="h-12" />
+      </header>
+
+      <div class="relative">
+        <div
+          class="flex justify-around text-sm text-gray-600 border-b border-[#DFE3E8] tab-buttons"
+        >
+          <button
+            onclick="showTab(0)"
+            class="text-[#5969f5] font-semibold border-b-2 border-[#5969f5] pb-2"
+          >
+            이메일 로그인
+          </button>
+          <button onclick="showTab(1)" class="pb-2">휴대폰번호 로그인</button>
+          <button onclick="showTab(2)" class="pb-2">QR코드 로그인</button>
+        </div>
+        <div
+          class="absolute top-[30px] left-0 w-full h-px bg-[#DFE3E8] -z-10"
+        ></div>
+      </div>
+
+      <div id="tab-contents" class="mt-4 space-y-3">
+        <div
+          class="relative flex items-center border border-gray-300 rounded w-full h-[48px]"
+        >
+          <div
+            class="w-[45px] h-full bg-white flex items-center justify-center border-r border-gray-300"
+          >
+            <img src="assets/email.png" alt="email icon" class="w-5 h-5" />
+          </div>
+
+          <input
+            type="text"
+            id="email"
+            placeholder="아이디(이메일)"
+            class="flex-1 px-3 text-sm placeholder-gray-400 focus:outline-none"
+          />
+
+          <div
+            class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer w-5 h-5"
+          >
+            <img
+              src="assets/x.png"
+              alt="clear icon"
+              class="w-full h-full object-contain"
+            />
+          </div>
+        </div>
+        <p id="emailWarning" class="text-red-600 text-sm mt-1 hidden">
+          아이디(이메일)를 입력해주세요.
+        </p>
+
+        <div
+          class="relative flex items-center border border-gray-300 rounded w-full h-[48px]"
+        >
+          <div
+            class="w-[44px] h-full bg-white flex items-center justify-center border-r border-gray-300"
+          >
+            <img
+              src="assets/password.png"
+              alt="password icon"
+              class="w-5 h-5"
+            />
+          </div>
+
+          <input
+            type="password"
+            id="password"
+            placeholder="비밀번호"
+            class="flex-1 px-3 text-sm placeholder-gray-400 focus:outline-none"
+          />
+
+          <div
+            class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer w-5 h-5"
+          >
+            <img
+              src="assets/eye.png"
+              alt="toggle password"
+              class="w-full h-full object-contain"
+            />
+          </div>
+        </div>
+
+        <p id="passwordWarning" class="text-red-600 text-sm mt-1 hidden">
+          비밀번호를 입력해주세요.
+        </p>
+
+        <div class="flex justify-between items-center text-sm">
+          <label class="flex items-center space-x-1">
+            <input type="checkbox" class="accent-blue-500 w-4 h-4" />
+            <span class="text-[14px] font-[dotum] text-[#555555]"
+              >자동 로그인</span
+            >
+          </label>
+          <a href="#" class="text-[14px] font-[dotum] text-[#0073E9] pr-[12px]">
+            아이디·비밀번호 찾기 &gt;
+          </a>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-[#346AFF] text-white font-semibold text-[16px] px-0 py-[12.5px] rounded"
+        >
+          로그인
+        </button>
+
+        <hr class="w-full h-px bg-[#DFE3E8] border-0 mt-[12px] mb-[16px]" />
+
+        <a
+          href="https://login.coupang.com/login/memberJoinFrm.pang"
+          class="block w-full text-center border border-gray-300 text-black text-[16px] font-['apple sd gothic neo'] py-[11.5px] px-0 bg-white rounded"
+        >
+          회원가입
+        </a>
+      </div>
+
+      <div id="phoneTab" class="hidden">
+        <form class="space-y-5">
+          <p class="text-center text-[16px] text-[#333]">
+            쿠팡 계정에 등록된 휴대폰번호를 입력해주세요.
+          </p>
+
+          <div
+            class="flex items-center border border-gray-300 rounded px-4 py-3"
+          >
+            <img src="assets/call.png" alt="Coupang Logo" class="h-10 w-10" />
+            <input
+              type="text"
+              placeholder="휴대폰번호"
+              class="w-full focus:outline-none text-gray-700 placeholder-gray-400"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-[#346AFF] text-white font-semibold text-[16px] px-0 py-[12.5px] rounded"
+          >
+            인증번호 발송
+          </button>
+
+          <hr class="border-t border-gray-300" />
+
+          <button
+            type="button"
+            class="w-full border border-gray-400 text-[16px] py-3 font-semibold text-black"
+          >
+            회원가입
+          </button>
+        </form>
+      </div>
+
+      <div id="qrTab" class="hidden text-gray-700">
+        <div class="flex gap-8 items-start">
+          <div class="flex-1 text-left">
+            <p class="text-base font-semibold mb-4 leading-relaxed">
+              쿠팡 앱을 통해 바로 로그인하려면<br />
+              다음 단계에 따라 진행해주세요.
+            </p>
+            <ul
+              class="text-sm text-[#666] mb-4 space-y-1 list-decimal list-inside"
+            >
+              <li>휴대폰 카메라로 QR코드를 스캔하세요.</li>
+              <li>화면에서 아래의 숫자를 선택하면 로그인됩니다.</li>
+            </ul>
+            <div class="inline-block text-center mb-3">
+              <div
+                class="text-3xl font-bold border border-gray-300 rounded-md px-5 py-2 bg-gray-100"
+              >
+                40
+              </div>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">
+              <span class="inline-block w-4 h-4 mr-1 align-text-bottom"
+                >ℹ️</span
+              >
+              최신 버전의 앱에서만 QR로그인이 가능합니다.
+            </p>
+          </div>
+          <div class="flex flex-col items-center">
+            <img src="assets/QR.png" alt="QR 예시" class="w-40 h-40" />
+            <p class="text-sm text-gray-500 mt-2">
+              남은시간 <span id="time" class="font-bold">3:00</span>
+            </p>
+          </div>
+        </div>
+
+        <a
+          href="https://login.coupang.com/login/memberJoinFrm.pang"
+          class="block w-full text-center border border-gray-300 text-[16px] font-['apple sd gothic neo'] text-[#454F5B] py-[11.5px] px-0 bg-white"
+        >
+          회원가입
+        </a>
+      </div>
+
+      <p class="text-xs text-black mt-6 mx-auto text-center w-fit">
+        &copy; Coupang Corp. All rights reserved.
+      </p>
+    </div>
+
+    <script>
+      const tabs = ['tab-contents', 'phoneTab', 'qrTab'];
+      const buttons = document.querySelectorAll('.tab-buttons button');
+
+      function showTab(index) {
+        tabs.forEach((id, i) => {
+          document.getElementById(id).classList.toggle('hidden', i !== index);
+          buttons[i].classList.toggle('text-[#5969f5]', i === index);
+          buttons[i].classList.toggle('font-semibold', i === index);
+          buttons[i].classList.toggle('border-b-2', i === index);
+          buttons[i].classList.toggle('border-[#5969f5]', i === index);
+        });
+      }
+
+      let timeLeft = 180;
+      const timeDisplay = document.getElementById('time');
+
+      const timer = setInterval(() => {
+        const m = Math.floor(timeLeft / 60);
+        const s = String(timeLeft % 60).padStart(2, '0');
+        timeDisplay.textContent = `${m}:${s}`;
+        timeLeft--;
+
+        if (timeLeft < 0) {
+          clearInterval(timer);
+          timeDisplay.textContent = '0:00';
+        }
+      }, 1000);
+    </script>
+  </body>
+</html>
